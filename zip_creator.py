@@ -9,7 +9,8 @@ def make_archive(filepaths, desk_dir):
     # Open the zip file using desk_path
     with zipfile.ZipFile(desk_path, 'w') as archive:
         for filepath in filepaths:
-            archive.write(filepath)
+            filepath = pathlib.Path(filepath)
+            archive.write(filepath, arcname=filepath.name)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 import FreeSimpleGUI as sg
 import functions
+import time
+sg.theme("Black")
 
+Clock = sg.Text('', key='clock')
 label = sg.Text("type in a to-do")
 input_box = sg.InputText(tooltip="Enter todo", key="todo")
 add_button = sg.Button("Add")
@@ -10,12 +13,13 @@ edit_button = sg.Button("Edit")
 Delete_button = sg.Button("Delete")
 Exit_Button = sg.Button("Exit")
 
-window = sg.Window('My TO_Do_App', layout=[[label, input_box, add_button],
-                                           [list_box, edit_button,  Delete_button],
+window = sg.Window('My TO_Do_App', layout=[[Clock], [label, input_box, add_button],
+                                           [list_box, edit_button, Delete_button],
                                            [Exit_Button]], font=('Helvetica', 20))
 
 while True:
-    event, values = window.read()
+    event, values = window.read(timeout=200)
+    window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
 
     # Handle the window close event
     if event == sg.WIN_CLOSED:
@@ -40,7 +44,7 @@ while True:
             functions.write_todos(todos)
             window['todos'].update(values=todos)  # Update the listbox with new values
         except IndexError:
-            sg.popup("Please select an item first")  # Handle no selection error
+            sg.popup("Please select an item to be edited first", font=("Helvetica", 20))  # Handle no selection error
 
     # Delete selected todo item
     if event == "Delete":
@@ -51,7 +55,8 @@ while True:
             functions.write_todos(todos)
             window['todos'].update(values=todos)  # Update the listbox with new values
         except IndexError:
-            sg.popup("Please select an item first")  # Handle no selection error
+            sg.popup("Please select an item to be  deleted first", font=("Helvetica", 20))
+            # Handle no selection error
     if event == "Exit":
         break
 
