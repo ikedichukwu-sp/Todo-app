@@ -1,6 +1,6 @@
 import FreeSimpleGUI as sg
 
-
+sg.theme("black")
 # Conversion function
 def converter(feet, inch):
     feet_to_meters = feet * 0.3048
@@ -13,7 +13,7 @@ def converter(feet, inch):
 layout = [
     [sg.Text("Enter feet"), sg.InputText(key='-FEET-', tooltip="feet")],
     [sg.Text("Enter inch"), sg.InputText(key='-INCH-', tooltip="inch")],
-    [sg.Button("Convert"), sg.Text(size=(15, 1), key='-OUTPUT-')]
+    [sg.Button("Convert"), sg.Button("Exit"), sg.Text(size=(15, 1), key='-OUTPUT-')]
 ]
 
 # Create the window
@@ -25,6 +25,8 @@ while True:
 
     # If user closes the window or presses "Convert"
     if event == sg.WIN_CLOSED:
+        break
+    if event == 'Exit':
         break
 
     if event == "Convert":
