@@ -24,10 +24,10 @@ while True:
     event, values = window.read()
 
     # If user closes the window or presses "Convert"
-    if event == sg.WIN_CLOSED:
+    if event == sg.WIN_CLOSED or 'Exit':
         break
-    if event == 'Exit':
-        break
+    #if event == 'Exit':
+        #break
 
     if event == "Convert":
         try:
